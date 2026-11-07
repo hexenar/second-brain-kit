@@ -27,6 +27,8 @@ Language for everything you write here (pages, answers, log, commits): **English
 - **QUERY** (`/query question`): answer only from the wiki, with citations and confidence; offer to save the answer as a `synthesis` page.
 - **LINT** (`/lint`): run `scripts/lint.py`, explain each failure, propose fixes as a diff and review contradictions, expiry and gaps by judgment.
 
+Added by this kit (not one of Karpathy's): **`/consolidate [page or topic]`** re-reads the sources of the oldest pages, checks claims and figures, and proposes corrections as a diff; it is declared and logged as LINT.
+
 Every operation ends by updating `wiki/index.md` (if any page changed) and logging itself with:
 
 ```bash

@@ -313,8 +313,12 @@ def test_vaults_de_ejemplo_siguen_su_plantilla(plantilla, ejemplo):
     origen = KIT / plantilla
     sin_titulo = lambda ruta: ruta.read_bytes().split(b"\n", 1)[1]
     assert sin_titulo(ejemplo / "CLAUDE.md") == sin_titulo(origen / "CLAUDE.md")
-    for comando in ("ingest.md", "query.md", "lint.md"):
-        rel = Path(".claude/commands") / comando
+    comandos = Path(".claude/commands")
+    nombres = lambda raiz: sorted(p.name for p in (raiz / comandos).glob("*.md"))
+    # La lista sale de la plantilla: un comando nuevo que falte en el ejemplo hace fallar la prueba.
+    assert nombres(ejemplo) == nombres(origen)
+    for comando in nombres(origen):
+        rel = comandos / comando
         assert (ejemplo / rel).read_bytes() == (origen / rel).read_bytes(), rel
 
 

@@ -16,6 +16,7 @@ ESPERADOS = {
     ".claude/commands/ingest.md",
     ".claude/commands/query.md",
     ".claude/commands/lint.md",
+    ".claude/commands/consolidar.md",
     "raw/.gitkeep",
     "raw/.hashes.json",
     "wiki/index.md",
@@ -32,6 +33,7 @@ ESPERADOS_EN = {
     ".claude/commands/ingest.md",
     ".claude/commands/query.md",
     ".claude/commands/lint.md",
+    ".claude/commands/consolidate.md",
     "raw/.gitkeep",
     "raw/.hashes.json",
     "wiki/index.md",
@@ -61,7 +63,7 @@ def test_estructura_completa_con_ocultos_y_scripts(tmp_path):
     for script in ("lint.py", "log.py"):
         assert (destino / "scripts" / script).read_bytes() == (KIT / "scripts" / script).read_bytes()
     # Los archivos sin marcador se copian idénticos.
-    for rel in (".claude/commands/ingest.md", "wiki/log.md", "raw/.gitkeep"):
+    for rel in (".claude/commands/ingest.md", ".claude/commands/consolidar.md", "wiki/log.md", "raw/.gitkeep"):
         assert (destino / rel).read_bytes() == (KIT / "plantilla" / rel).read_bytes()
 
 
@@ -142,7 +144,7 @@ def test_lang_en_usa_plantilla_en(tmp_path):
         texto = (destino / rel).read_text(encoding="utf-8")
         assert "{{NAME}}" not in texto
         assert texto.startswith("# Test")
-    for rel in (".claude/commands/ingest.md", "wiki/log.md", "raw/.gitkeep"):
+    for rel in (".claude/commands/ingest.md", ".claude/commands/consolidate.md", "wiki/log.md", "raw/.gitkeep"):
         assert (destino / rel).read_bytes() == (KIT / "plantilla-en" / rel).read_bytes()
     assert "MAESTRO rules" in (destino / "CLAUDE.md").read_text(encoding="utf-8")
     assert "created in" in r.stdout and "Next step" in r.stdout
@@ -163,3 +165,16 @@ def test_force_reescribe_el_marcador_de_idioma(tmp_path):
     assert correr(INIT, destino).returncode == 0
     assert correr(INIT, destino, "--force", "--lang", "en").returncode == 0
     assert json.loads((destino / ".second-brain.json").read_text(encoding="utf-8")) == {"lang": "en"}
+
+
+@pytest.mark.parametrize("lang, comando", [("es", "consolidar.md"), ("en", "consolidate.md")])
+def test_vault_nuevo_trae_consolidar_con_su_cuadrante(tmp_path, lang, comando):
+    """El vault nuevo trae el comando de consolidación y el lint no avisa de cuadrante faltante."""
+    destino = tmp_path / "v"
+    assert correr(INIT, destino, "--lang", lang).returncode == 0
+    assert (destino / ".claude/commands" / comando).is_file()
+    r = correr(destino / "scripts/lint.py", destino, "--json")
+    assert r.returncode == 0, r.stdout
+    datos = json.loads(r.stdout)
+    avisos = datos["avisos"] if lang == "es" else datos["warnings"]
+    assert avisos == []

@@ -30,6 +30,7 @@ Dos ejes ordenan las decisiones: **ambigüedad** (¿está claro qué hay que dec
 | `/query` | Exploratorio | humano con IA (la pregunta) | IA (responde solo desde la wiki) | humano (decide si se guarda como síntesis) | Ninguna |
 | `/lint` | Rutina | **script** (reglas fijas en `lint.py`) | **script** | **script** (VERDE/ROJO); el humano solo mira si sale ROJO | El que actúa es un script, no un modelo |
 | `/ingest` | Consecuencial: todo lo demás se apoya en la wiki | humano con IA (plan de 5 pasos y pregunta) | humano con IA (los cambios a páginas existentes llegan como diff para aprobar) | humano + script (lint en VERDE y log) | Más conservador, a propósito |
+| `/consolidar` (añadido del kit) | Consecuencial: corrige páginas en las que se apoya todo lo demás | humano con IA (foco o las 5 páginas más antiguas) | humano con IA (la IA propone correcciones como diff; el humano aprueba) | humano + script (lint en VERDE y log) | Más conservador, a propósito |
 | `CLAUDE.md`, categorías, reglas nuevas | Estratégico | humano con IA | humano | humano | Ninguna; la regla 9 obliga a que cada regla nazca con su chequeo |
 
 ## Lo que el marco no trae y el kit añade

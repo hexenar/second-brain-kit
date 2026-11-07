@@ -30,6 +30,7 @@ Two axes sort decisions: **ambiguity** (is it clear what has to be decided?) and
 | `/query` | Exploratory | human with AI (the question) | AI (answers only from the wiki) | human (decides whether to save it as a synthesis page) | None |
 | `/lint` | Routine | **script** (fixed rules in `lint.py`) | **script** | **script** (GREEN/RED); the human only looks when it turns RED | The actor is a script, not a model |
 | `/ingest` | Consequential: everything else rests on the wiki | human with AI (5-step plan and a question) | human with AI (changes to existing pages arrive as a diff to approve) | human + script (lint GREEN and log) | More conservative, on purpose |
+| `/consolidate` (added by the kit) | Consequential: it corrects pages everything else rests on | human with AI (focus or the 5 oldest pages) | human with AI (the AI proposes corrections as a diff; the human approves) | human + script (lint GREEN and log) | More conservative, on purpose |
 | `CLAUDE.md`, categories, new rules | Strategic | human with AI | human | human | None; rule 9 requires every rule to be born with its check |
 
 ## What the framework lacks and the kit adds

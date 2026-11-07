@@ -27,6 +27,8 @@ Idioma de todo lo que escribas aquí (páginas, respuestas, log, commits): **esp
 - **QUERY** (`/query pregunta`): responder solo desde la wiki, con citas y confianza; ofrecer guardar la respuesta como página `sintesis`.
 - **LINT** (`/lint`): correr `scripts/lint.py`, explicar cada fallo, proponer arreglos como diff y revisar a juicio contradicciones, caducidad y huecos.
 
+Añadido de este kit (no es de Karpathy): **`/consolidar [página o tema]`** relee las fuentes de las páginas más antiguas, contrasta afirmaciones y cifras, y propone correcciones como diff; se declara y registra como LINT.
+
 Cada operación termina actualizando `wiki/index.md` (si cambió alguna página) y registrándose con:
 
 ```bash
