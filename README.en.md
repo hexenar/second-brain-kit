@@ -33,6 +33,7 @@ One way to see it: Obsidian is the IDE, the LLM is the programmer, and the wiki 
 - `scripts/lint.py`: the programmatic part of LINT, with a GREEN/RED result.
 - `scripts/log.py`: an append-only log and a sha256 record of every source in `raw/` (to detect whether anyone modified it).
 - The **MAESTRO rules** (their own section below), kept apart from what is Karpathy's.
+- `/consolidate [page or topic]`: re-reads the sources of the oldest pages, checks every claim and proposes corrections as a diff (weekly or monthly; not one of Karpathy's operations).
 - Two languages: Spanish (the default) and English. With `--lang en`, the vault comes from `plantilla-en/` (schema, commands and frontmatter fields in English) and the scripts answer in English.
 
 ## How to receive this kit as a single file
@@ -170,6 +171,12 @@ The first line is the verdict: `LINT: GREEN (0 failures)` or `LINT: RED (N failu
 - **Marp**: turns markdown into slides; useful for presenting a synthesis page. There is a VS Code extension, a CLI and community plugins for Obsidian.
 - **qmd** (https://github.com/tobi/qmd): a local search engine for markdown collections that, according to its author, combines keyword and semantic search. It makes sense when the wiki grows and the index is no longer enough to find pages. Installation and commands: in its README (they change between versions; they are not reproduced here).
 
+### Wiki + search: better together
+
+In an Anthropic test with 25 questions about a large internal corpus, the wiki alone got 48% right (starting from 13% with 2 consolidation sessions and reaching that with 128), search alone 53%, and wiki + search went from 54% to 61% as the wiki grew, using about 20,000 fewer tokens per question. In the article's words: "the wiki helped Claude the most when we also gave it access to a search tool" ([Lance Martin, "The components of agent memory", Anthropic, 6 Nov 2026](https://www.anthropic.com/research/components-of-agent-memory)).
+
+The reason: the wiki gives structure and links; search finds the detail the wiki did not distill. For markdown, qmd (above) does the job; for PDFs, the author's companion repo, [biblioteca-semantica](https://github.com/hexenar/biblioteca-semantica), does local semantic search: it runs on CPU and uploads nothing.
+
 ## MAESTRO rules
 
 Rules of our own, **not part of Karpathy's pattern**. They live in full in `plantilla-en/CLAUDE.md`.
@@ -188,7 +195,7 @@ Rules of our own, **not part of Karpathy's pattern**. They live in full in `plan
 
 ## Who decides what (AI decision matrix)
 
-Each operation of the kit is placed on the AI decision matrix by Sebastian, Weill, Haskamp and vom Brocke (MIT Sloan, 2026): `/query` is exploratory, `/lint` is routine (a script decides it, not a model), `/ingest` is consequential, and changes to `CLAUDE.md`, categories and rules are strategic. Each command declares it in its `Quadrant:` line (MAESTRO rule 11). The framework, the full split and how to place a new operation: [docs/decision-rights.md](docs/decision-rights.md).
+Each operation of the kit is placed on the AI decision matrix by Sebastian, Weill, Haskamp and vom Brocke (MIT Sloan, 2026): `/query` is exploratory, `/lint` is routine (a script decides it, not a model), `/ingest` and `/consolidate` are consequential, and changes to `CLAUDE.md`, categories and rules are strategic. Each command declares it in its `Quadrant:` line (MAESTRO rule 11). The framework, the full split and how to place a new operation: [docs/decision-rights.md](docs/decision-rights.md).
 
 ## Lessons from use
 
@@ -207,7 +214,7 @@ second-brain-kit/
 ├── plantilla/                Spanish template (the default)
 ├── plantilla-en/             what is copied to every new English vault
 │   ├── CLAUDE.md             wiki schema + MAESTRO rules
-│   ├── .claude/commands/     /ingest, /query, /lint
+│   ├── .claude/commands/     /ingest, /query, /lint, /consolidate
 │   ├── raw/                  raw sources (immutable)
 │   └── wiki/                 index.md, log.md, concepts/, entities/, sources/
 ├── scripts/                  lint.py and log.py (copied to every vault)
@@ -225,7 +232,7 @@ A vault created with `init_vault.py --lang en` looks like this:
 my-wiki/
 ├── CLAUDE.md
 ├── .second-brain.json        vault language: {"lang": "en"}
-├── .claude/commands/{ingest,query,lint}.md
+├── .claude/commands/{ingest,query,lint,consolidate}.md
 ├── raw/                      .hashes.json + your sources YYYY-MM-DD-*.md
 ├── scripts/{lint,log}.py
 └── wiki/
