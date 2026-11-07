@@ -281,6 +281,73 @@ def test_raw_sin_hash_es_aviso_no_fallo(vault):
     assert datos["avisos"][0]["archivo"] == "raw/2026-09-18-nueva.md"
 
 
+# --- Aviso wiki_mayor_que_raw (la wiki pesa más que sus fuentes) -----------------------
+
+KB = 1024
+
+
+def raw_de(vault: Path, kb: int) -> None:
+    """Fuente registrada de `kb` KB, para que raw/ supere (o no) el mínimo de 100 KB."""
+    rel = "raw/2026-09-18-grande.md"
+    (vault / rel).write_text("linea de fuente\n" * (kb * KB // 16), encoding="utf-8")
+    assert correr(KIT / "scripts/log.py", vault, "INGEST", "grande", "--raw", rel).returncode == 0
+
+
+def wiki_de(vault: Path, kb: int) -> None:
+    """Engorda alfa hasta unos `kb` KB sin romper ningún otro chequeo."""
+    escribir(vault, "wiki/conceptos/alfa.md", "Ver [[beta]].\n" + "linea de wiki\n" * (kb * KB // 14))
+
+
+def avisos_wiki(datos) -> list:
+    return [a for a in datos["avisos"] if a["tipo"] == "wiki_mayor_que_raw"]
+
+
+def test_wiki_mayor_que_raw_es_aviso_no_fallo(vault):
+    raw_de(vault, 110)
+    wiki_de(vault, 150)
+    codigo, datos = lint(vault)
+    assert codigo == 0
+    assert datos["estado"] == "VERDE" and datos["fallos"] == []
+    assert [a["tipo"] for a in datos["avisos"]] == ["wiki_mayor_que_raw"]
+    aviso = datos["avisos"][0]
+    assert aviso["archivo"] == "wiki/"
+    assert aviso["detalle"].startswith("la wiki pesa 150.")
+    assert "KB y sus fuentes 110.0 KB (1.3" in aviso["detalle"]
+    r = correr(LINT, vault, "--hoy", HOY)
+    assert r.returncode == 0
+    assert "  - wiki/: la wiki pesa" in r.stdout
+
+
+def test_wiki_menor_que_raw_no_avisa(vault):
+    raw_de(vault, 150)
+    wiki_de(vault, 110)
+    assert avisos_wiki(lint(vault)[1]) == []
+
+
+def test_raw_bajo_el_minimo_no_avisa(vault):
+    raw_de(vault, 50)
+    wiki_de(vault, 200)
+    assert avisos_wiki(lint(vault)[1]) == []
+
+
+def test_raw_vacio_no_avisa(vault):
+    (vault / RAW).unlink()
+    (vault / "raw/.hashes.json").write_text("{}\n", encoding="utf-8")
+    wiki_de(vault, 200)
+    assert avisos_wiki(lint(vault)[1]) == []
+
+
+def test_index_y_log_no_cuentan_para_el_tamano(vault):
+    raw_de(vault, 110)
+    with (vault / "wiki/index.md").open("a", encoding="utf-8") as f:
+        f.write("relleno del indice\n" * (100 * KB // 19))
+    with (vault / "wiki/log.md").open("a", encoding="utf-8") as f:
+        f.write("relleno del log\n" * (100 * KB // 16))
+    codigo, datos = lint(vault)
+    assert codigo == 0
+    assert avisos_wiki(datos) == []
+
+
 # --- Salida y exit codes --------------------------------------------------------------------
 
 def test_json_valido_y_estructura(vault):

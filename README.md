@@ -153,6 +153,7 @@ La primera línea es el veredicto: `LINT: VERDE (0 fallos)` o `LINT: ROJO (N fal
 | `fuente_inexistente` | Una entrada `raw/...` de `fuentes` no existe en disco. | Corregir la ruta. |
 | *aviso* `raw_sin_hash` | Fuente en `raw/` sin registrar (aún no ingerida). | Ingerirla con `/ingest`. |
 | *aviso* `comando_sin_cuadrante` | Un comando de `.claude/commands/` no tiene su línea `Cuadrante:` (regla MAESTRO 11). | Añadir la línea con el cuadrante y quién define, actúa y aprende. |
+| *aviso* `wiki_mayor_que_raw` | Con al menos 100 KB de fuentes, la wiki (sin `index.md` ni `log.md`) pesa más que `raw/`: probablemente copia en vez de destilar. | Resumir las páginas que repiten la fuente. |
 
 ## Herramientas opcionales
 

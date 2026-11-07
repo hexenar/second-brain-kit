@@ -153,6 +153,7 @@ The first line is the verdict: `LINT: GREEN (0 failures)` or `LINT: RED (N failu
 | `missing_source` | A `raw/...` entry in `sources` does not exist on disk. | Correct the path. |
 | *warning* `raw_unhashed` | A source in `raw/` that is not registered (not ingested yet). | Ingest it with `/ingest`. |
 | *warning* `command_without_quadrant` | A command in `.claude/commands/` has no `Quadrant:` line (MAESTRO rule 11). | Add the line with the quadrant and who frames, acts and learns. |
+| *warning* `wiki_larger_than_raw` | With at least 100 KB of sources, the wiki (without `index.md` and `log.md`) weighs more than `raw/`: it is probably copying instead of distilling. | Summarize the pages that repeat their source. |
 
 ## Optional tools
 

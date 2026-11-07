@@ -39,6 +39,7 @@ Para cada fallo: explica qué significa en esa página y **propón el arreglo co
 
 Los **avisos** (`raw_sin_hash`) indican fuentes en `raw/` que aún no se han ingerido: lístalas como candidatas a `/ingest`.
 El aviso `comando_sin_cuadrante` señala un comando de `.claude/commands/` sin su línea `Cuadrante:` (regla MAESTRO 11): propón añadirla como diff.
+El aviso `wiki_mayor_que_raw` (solo con ≥ 100 KB en `raw/`) señala una wiki que pesa más que sus fuentes: busca las páginas que copian la fuente y propón resumirlas.
 
 ## 3. Revisión a juicio (no programática)
 

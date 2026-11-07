@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Lint de la wiki: frontmatter, categorías, enlaces, huérfanas, reciprocidad,
-caducidad, índice, integridad de raw/ y cuadrante declarado en cada comando.
+caducidad, índice, integridad de raw/, cuadrante declarado en cada comando y
+tamaño de la wiki frente a sus fuentes.
 
 Uso:    python3 scripts/lint.py [vault] [--json] [--hoy AAAA-MM-DD] [--lang es|en]
 Salida: exit 0 si VERDE (sin fallos), 1 si ROJO (hay fallos), 2 si error de uso.
@@ -40,6 +41,12 @@ CAMPOS_OBLIGATORIOS = {
 # Marca de página archivada (regla MAESTRO 6). Vive aquí para que la convención
 # de cada idioma esté en un solo sitio; ningún chequeo trata distinto esas páginas.
 MARCA_ARCHIVO = {"es": ("estado", "archivo"), "en": ("status", "archived")}
+# Una wiki que pesa más que sus fuentes probablemente copia en vez de destilar
+# (Anthropic, «The components of agent memory», 2026: 115 KB de fuentes → 203 KB de wiki).
+UMBRAL_TAMANO_WIKI = 1.0
+# Con menos de ~100 KB de fuentes la razón no informa: las páginas de concepto y
+# entidad agregan varias fuentes, así que una wiki pequeña suele pesar más que raw/.
+MINIMO_RAW_KB = 100
 # -----------------------------------------------------------------------------
 
 IDIOMAS = ("es", "en")
@@ -58,7 +65,7 @@ IDS_EN = {
     "index_falta": "index_missing", "index_sobra": "index_extra",
     "raw_modificado": "raw_modified", "raw_desaparecido": "raw_missing",
     "fuente_inexistente": "missing_source", "raw_sin_hash": "raw_unhashed",
-    "comando_sin_cuadrante": "command_without_quadrant",
+    "comando_sin_cuadrante": "command_without_quadrant", "wiki_mayor_que_raw": "wiki_larger_than_raw",
 }
 # Claves del JSON de un vault en inglés (en español se conservan las de siempre).
 CLAVES_EN = {"estado": "status", "fallos": "failures", "avisos": "warnings", "paginas": "pages",
@@ -96,6 +103,8 @@ TEXTOS = {
         "raw_sin_hash": "sin hash en raw/.hashes.json; se registra al ingerirla (scripts/log.py --raw)",
         "sin_cuadrante": "no declara su cuadrante: falta una línea que empiece por «Cuadrante:» "
                          "(regla MAESTRO 11)",
+        "wiki_mayor_que_raw": "la wiki pesa {wiki:.1f} KB y sus fuentes {raw:.1f} KB ({ratio:.2f}×): "
+                              "una wiki debería destilar, no copiar; revisa páginas que repiten la fuente",
         "sin_yaml": "error: falta PyYAML. Instálalo con: pip install pyyaml",
         "hoy_invalida": "argument --hoy: fecha inválida '{valor}' (usa AAAA-MM-DD)",
         "no_es_vault": "error: {vault} no parece un vault (no tiene carpeta wiki/)",
@@ -131,6 +140,8 @@ TEXTOS = {
         "raw_sin_hash": "no hash in raw/.hashes.json; it is registered on ingest (scripts/log.py --raw)",
         "sin_cuadrante": "does not declare its quadrant: no line starting with \"Quadrant:\" "
                          "(MAESTRO rule 11)",
+        "wiki_mayor_que_raw": "the wiki weighs {wiki:.1f} KB and its sources {raw:.1f} KB ({ratio:.2f}×): "
+                              "a wiki should distill, not copy; review pages that repeat their source",
         "sin_yaml": "error: PyYAML is missing. Install it with: pip install pyyaml",
         "hoy_invalida": "argument --hoy: invalid date '{valor}' (use YYYY-MM-DD)",
         "no_es_vault": "error: {vault} does not look like a vault (no wiki/ folder)",
@@ -318,11 +329,13 @@ def lint(vault: Path, hoy: dt.date, idioma: str = "es") -> dict:
 
     # 1) Páginas: todo .md de wiki/ salvo wiki/index.md y wiki/log.md.
     paginas, salientes = {}, {}
+    tam_wiki = 0
     for ruta in sorted(wiki.rglob("*.md")):
         rel_wiki = ruta.relative_to(wiki)
         if not ruta.is_file() or oculto(rel_wiki) or rel_wiki.as_posix() in ("index.md", "log.md"):
             continue
         rel = ruta.relative_to(vault).as_posix()
+        tam_wiki += ruta.stat().st_size
         texto = ruta.read_text(encoding="utf-8-sig")
         bloque, cuerpo = separar_frontmatter(texto)
         enlaces = destinos(RE_CODIGO.sub("", cuerpo))
@@ -380,14 +393,22 @@ def lint(vault: Path, hoy: dt.date, idioma: str = "es") -> dict:
             fallo("raw_desaparecido", rel, T["raw_desaparecido"])
         elif sha256(ruta) != registrado:
             fallo("raw_modificado", rel, T["raw_modificado"])
+    tam_raw = 0
     if raw.is_dir():
         for ruta in sorted(raw.rglob("*")):
             if ruta.is_file() and not oculto(ruta.relative_to(raw)):
+                tam_raw += ruta.stat().st_size
                 rel = ruta.relative_to(vault).as_posix()
                 if rel not in hashes:
                     avisos.append({"tipo": "raw_sin_hash", "archivo": rel, "detalle": T["raw_sin_hash"]})
 
-    # 5) Cuadrante declarado en cada comando: es aviso, no cambia el resultado.
+    # 5) Tamaño: es aviso, no cambia el resultado.
+    if tam_raw >= MINIMO_RAW_KB * 1024 and tam_wiki / tam_raw > UMBRAL_TAMANO_WIKI:
+        avisos.append({"tipo": "wiki_mayor_que_raw", "archivo": "wiki/",
+                       "detalle": T["wiki_mayor_que_raw"].format(
+                           wiki=tam_wiki / 1024, raw=tam_raw / 1024, ratio=tam_wiki / tam_raw)})
+
+    # 6) Cuadrante declarado en cada comando: es aviso, no cambia el resultado.
     avisos += comandos_sin_cuadrante(vault, idioma)
 
     fallos.sort(key=lambda f: (TIPOS_FALLO.index(f["tipo"]), f["archivo"], f["detalle"]))
