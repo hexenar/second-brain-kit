@@ -39,6 +39,7 @@ For each failure: explain what it means on that page and **propose the fix as a 
 
 The **warnings** (`raw_unhashed`) point to sources in `raw/` that have not been ingested yet: list them as candidates for `/ingest`.
 The `command_without_quadrant` warning flags a command in `.claude/commands/` without its `Quadrant:` line (MAESTRO rule 11): propose adding it as a diff.
+The `wiki_larger_than_raw` warning (only with ≥ 100 KB in `raw/`) flags a wiki that weighs more than its sources: find the pages that copy their source and propose summarizing them.
 
 ## 3. Judgment review (not programmatic)
 

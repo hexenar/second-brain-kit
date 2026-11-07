@@ -145,4 +145,5 @@ The user's own rules, added to Karpathy's pattern. They always apply.
 | raw/ immutable | `scripts/lint.py` → `raw_modified`, `raw_missing`, `missing_source` |
 | Append-only log | `scripts/log.py` (only appends) |
 | Quadrant declared in every command (rule 11) | `scripts/lint.py` → warning `command_without_quadrant` |
+| The wiki distills, does not copy (with ≥ 100 KB in raw/) | `scripts/lint.py` → warning `wiki_larger_than_raw` |
 | Skeptical pass, citations, closing confidence, date prefix in raw/, kebab-case, contradictions, pending links | judgment review by `/lint` |

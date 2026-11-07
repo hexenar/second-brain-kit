@@ -278,6 +278,21 @@ def test_sin_carpeta_de_comandos_no_avisa(vault_en):
     assert (codigo, datos["warnings"]) == (0, [])
 
 
+def test_en_aviso_wiki_larger_than_raw(vault_en):
+    rel = "raw/2026-09-18-big.md"
+    (vault_en / rel).write_text("source line\n" * (110 * 1024 // 12), encoding="utf-8")
+    assert correr(LOG, vault_en, "INGEST", "big", "--raw", rel).returncode == 0
+    escribir(vault_en, "wiki/concepts/alpha.md", "See [[beta]].\n" + "wiki line\n" * (150 * 1024 // 10))
+    codigo, datos = lint(vault_en)
+    assert codigo == 0
+    assert datos["status"] == "GREEN"
+    assert ids(datos, "warnings") == ["wiki_larger_than_raw"]
+    aviso = datos["warnings"][0]
+    assert aviso["file"] == "wiki/"
+    assert aviso["detail"].startswith("the wiki weighs 150.")
+    assert "KB and its sources 110.0 KB" in aviso["detail"]
+
+
 # --- vault de ejemplo en inglés -----------------------------------------------------------
 
 def test_vault_example_en_verde():

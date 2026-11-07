@@ -145,4 +145,5 @@ Reglas propias del usuario, añadidas al patrón de Karpathy. Se aplican siempre
 | raw/ inmutable | `scripts/lint.py` → `raw_modificado`, `raw_desaparecido`, `fuente_inexistente` |
 | Log append-only | `scripts/log.py` (solo añade) |
 | Cuadrante declarado en cada comando (regla 11) | `scripts/lint.py` → aviso `comando_sin_cuadrante` |
+| La wiki destila, no copia (con ≥ 100 KB en raw/) | `scripts/lint.py` → aviso `wiki_mayor_que_raw` |
 | Paso escéptico, citas, confianza al final, prefijo de fecha en raw/, kebab-case, contradicciones, pendientes | revisión a juicio de `/lint` |

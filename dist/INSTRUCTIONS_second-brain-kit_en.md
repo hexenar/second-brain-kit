@@ -186,6 +186,7 @@ The first line is the verdict: `LINT: GREEN (0 failures)` or `LINT: RED (N failu
 | `missing_source` | A `raw/...` entry in `sources` does not exist on disk. | Correct the path. |
 | *warning* `raw_unhashed` | A source in `raw/` that is not registered (not ingested yet). | Ingest it with `/ingest`. |
 | *warning* `command_without_quadrant` | A command in `.claude/commands/` has no `Quadrant:` line (MAESTRO rule 11). | Add the line with the quadrant and who frames, acts and learns. |
+| *warning* `wiki_larger_than_raw` | With at least 100 KB of sources, the wiki (without `index.md` and `log.md`) weighs more than `raw/`: it is probably copying instead of distilling. | Summarize the pages that repeat their source. |
 
 ## Optional tools
 
@@ -293,8 +294,8 @@ Dr. Jorge Montoya · Cardiologist. MIT License (see LICENSE).
 |---|---|---|
 | `.gitignore` | 59 | `817f6f8d6fc45986f43837684ed624010c05a47886bc5dae4c52ac665490bb5c` |
 | `LICENSE` | 1085 | `3a1e5065f163182fb0092bc5728694615650b8d512b74c6d0d432af1bebcbe74` |
-| `README.en.md` | 15848 | `514d7a11d211b7cdeb306e10315356bea6a4e2bae47d340b8f552c1106be511c` |
-| `README.md` | 16409 | `3b8e610463d0f69c9626b028cf8415e93f19f0c7dc1eace0160829fff966aa6e` |
+| `README.en.md` | 16082 | `a2537bdae613ec567027c730e0222e19136004d205c32c7d130a2296553ba418` |
+| `README.md` | 16621 | `28ea411d0b98537efd8704478c0264bc307f0c85978db23c2a9fe6ba48010b9d` |
 | `docs/decision-rights.md` | 3412 | `866c0bb9236ae718dc5d0836a519546f9ab1e85e3fb7a566bfaa84366dd95f73` |
 | `docs/derechos-de-decision.md` | 3550 | `c2a2065d21727c2054963eb5bc93aa7b5a3888226f8a6de8572edcb00a1664e2` |
 | `docs/lecciones-de-uso.md` | 1443 | `cc9ecf632375fec8b31c52d9c57eb952cab2a6e07741a25ab7c4a021d7cd2463` |
@@ -302,9 +303,9 @@ Dr. Jorge Montoya · Cardiologist. MIT License (see LICENSE).
 | `empaquetar.py` | 8804 | `10a502213f570e993003619a269e3b1ba8157e6e2ed3f592fa06c299cc91b9ee` |
 | `init_vault.py` | 5595 | `4e8edc2bcbc401ae891f8617f22566ee6100fb30cfc8bae81f3895b059cd6a79` |
 | `plantilla-en/.claude/commands/ingest.md` | 3607 | `f456c1cea3584bf5b93dff022e57746d7df07a51446ca8d805fa1e82e4487414` |
-| `plantilla-en/.claude/commands/lint.md` | 3404 | `35301d9e549060582d96d6512bcc819c9aa6319e63a27928a6a036f664470e49` |
+| `plantilla-en/.claude/commands/lint.md` | 3588 | `abf214d1175031394f91a7f0081a774b4a21b2097d99eaaeb8b18b46be45634a` |
 | `plantilla-en/.claude/commands/query.md` | 1604 | `9875fd63998433b754ea50bb1fff5dc3932dbe2724900b1b5419d8068fcfe1b8` |
-| `plantilla-en/CLAUDE.md` | 8154 | `f0cd6fdbdaef4a06855539627a6279fd7cf52134906ef95cbb507593221e78bb` |
+| `plantilla-en/CLAUDE.md` | 8272 | `d51e7653e1067049ead6ec653b8bb3300831854b7c7fbb0137154d8a21e09bb5` |
 | `plantilla-en/raw/.gitkeep` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
 | `plantilla-en/wiki/concepts/.gitkeep` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
 | `plantilla-en/wiki/entities/.gitkeep` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
@@ -312,32 +313,32 @@ Dr. Jorge Montoya · Cardiologist. MIT License (see LICENSE).
 | `plantilla-en/wiki/log.md` | 266 | `bb522fdc178b4ba466eb3d680bc689e0e55e862dff18f1c2d60d8e06ccfe9ca1` |
 | `plantilla-en/wiki/sources/.gitkeep` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
 | `plantilla/.claude/commands/ingest.md` | 3670 | `2545bb5cad8b87e385215c544d4f773d7f6bfbfcef2fd63d20e683690490e863` |
-| `plantilla/.claude/commands/lint.md` | 3466 | `0e098f5cd19d79809273918d9a55b5c69cb20747a1b27832ecb2a5938b548309` |
+| `plantilla/.claude/commands/lint.md` | 3638 | `e90c82e7542cb7b2ff5844a2a950594c2e2fb93e76a465f93abc0591bdf0d1aa` |
 | `plantilla/.claude/commands/query.md` | 1650 | `42f1ac1d1f74bf694e8a9b53488e2e9e4ef7c6c4fdcc16b0c777f2585c7a9fc1` |
-| `plantilla/CLAUDE.md` | 8509 | `e420a9f8df973ac3ee5d6e94404bb5311c2951ac2cb1bf2458e75ffcb8c2fae0` |
+| `plantilla/CLAUDE.md` | 8615 | `aaf84ef3416674e18c19900b3f1811227d110fa4a6e5563812d14f653c6b9ff3` |
 | `plantilla/raw/.gitkeep` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
 | `plantilla/wiki/conceptos/.gitkeep` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
 | `plantilla/wiki/entidades/.gitkeep` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
 | `plantilla/wiki/fuentes/.gitkeep` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
 | `plantilla/wiki/index.md` | 276 | `1b802101283be7d64eadae606184d062858be335132e3574d1975033797a85e8` |
 | `plantilla/wiki/log.md` | 279 | `d6a2a7310c96988b5a6bac0d1bed16455b1ddcaab259eb4f1fa3420a9b458165` |
-| `scripts/lint.py` | 21910 | `670068cf49320c5a246a08309fcb5507c6a57ce01f5b1e20f35989cde0d78581` |
+| `scripts/lint.py` | 23308 | `6fc98cea8eadb805d478bb653df38400005aaebd7ba2a5965460a56b510f9f75` |
 | `scripts/log.py` | 6152 | `ba0d2f9869dde7c2d828e8fd68a317523854124b0e12855f50f76aa95a42036e` |
 | `tests/test_empaquetar.py` | 6544 | `b71cb0ae7e7aeffad9ad76561bf6db0ef75ed95cf79db21119fe827758649e4a` |
-| `tests/test_idioma.py` | 15670 | `efb5500d43b0cb6dc19167abdfa8e2ccdd5242ab4786271b15885ce259627138` |
+| `tests/test_idioma.py` | 16378 | `61ab9a4c32e7d37f8e33a4f37b261da335f3485174b9e15a59a741037f2b244c` |
 | `tests/test_init_vault.py` | 5977 | `a266ecc7b143fac4f3b63c2d72db14bf88597790ba09b8e3707525984c9a727a` |
-| `tests/test_lint.py` | 13411 | `ca67876f57fbdeaf581ba8c60311fa260d78d59ed5a4f83b1fa0602a39c36c46` |
+| `tests/test_lint.py` | 15718 | `026e8a39115f09b542f6d892990a946077569346fa7483e1edf2e0468ffadc1a` |
 | `tests/test_log.py` | 3400 | `3802e2e392ae24bf0019ce96ed3737af387c7ee638595297de9eff6d6d2125ea` |
 | `tests/vault_ejemplo/.claude/commands/ingest.md` | 3670 | `2545bb5cad8b87e385215c544d4f773d7f6bfbfcef2fd63d20e683690490e863` |
-| `tests/vault_ejemplo/.claude/commands/lint.md` | 3466 | `0e098f5cd19d79809273918d9a55b5c69cb20747a1b27832ecb2a5938b548309` |
+| `tests/vault_ejemplo/.claude/commands/lint.md` | 3638 | `e90c82e7542cb7b2ff5844a2a950594c2e2fb93e76a465f93abc0591bdf0d1aa` |
 | `tests/vault_ejemplo/.claude/commands/query.md` | 1650 | `42f1ac1d1f74bf694e8a9b53488e2e9e4ef7c6c4fdcc16b0c777f2585c7a9fc1` |
 | `tests/vault_ejemplo/.second-brain.json` | 15 | `bcee4e1f1409c260ca68215afebcba8531ccc19f63b18a181cf6be8b287fe09e` |
-| `tests/vault_ejemplo/CLAUDE.md` | 8515 | `dfbb5372d082336584fe67f0873d2c1beec09e0abdb4d14d0220290fbb1354f1` |
+| `tests/vault_ejemplo/CLAUDE.md` | 8621 | `82ef0c463a068fdbe88c6a775b12adb0207c9c1a385b643ec023f288d388088a` |
 | `tests/vault_ejemplo/raw/.gitkeep` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
 | `tests/vault_ejemplo/raw/.hashes.json` | 240 | `001f75e1d6ed573eb120c7fb38644cec88dcfc4cd058eba588f30a55035a40ca` |
 | `tests/vault_ejemplo/raw/2026-09-01-ejemplo-articulo-repaso-espaciado.md` | 1025 | `57cb3f29ce341a14402a136446727040b4bb6d329c13d283018dada24ad1bc8a` |
 | `tests/vault_ejemplo/raw/2026-09-02-ejemplo-notas-equipo.md` | 607 | `69a599dd17378f91d9f0e87ccebca1247c91cb84136ed5f158ccb1aa22d8810b` |
-| `tests/vault_ejemplo/scripts/lint.py` | 21910 | `670068cf49320c5a246a08309fcb5507c6a57ce01f5b1e20f35989cde0d78581` |
+| `tests/vault_ejemplo/scripts/lint.py` | 23308 | `6fc98cea8eadb805d478bb653df38400005aaebd7ba2a5965460a56b510f9f75` |
 | `tests/vault_ejemplo/scripts/log.py` | 6152 | `ba0d2f9869dde7c2d828e8fd68a317523854124b0e12855f50f76aa95a42036e` |
 | `tests/vault_ejemplo/wiki/conceptos/repaso-espaciado.md` | 1389 | `e5e69d690d59464a97d2bf2abffd5ae45e5ace5d4dd4bbc35df144607c10cbb3` |
 | `tests/vault_ejemplo/wiki/entidades/equipo-ejemplo.md` | 983 | `dd5954757f703a00aeef738004f4632603d7852d8c393fd156171497cc69e363` |
@@ -345,15 +346,15 @@ Dr. Jorge Montoya · Cardiologist. MIT License (see LICENSE).
 | `tests/vault_ejemplo/wiki/index.md` | 600 | `d816d2abb4a23649b2376dc05e909325796bb42e6d31c7228875a002c8bbc83e` |
 | `tests/vault_ejemplo/wiki/log.md` | 850 | `4be356013bb0e246d405bb669166f922037c9395393c4db34185aef3cb764803` |
 | `tests/vault_example_en/.claude/commands/ingest.md` | 3607 | `f456c1cea3584bf5b93dff022e57746d7df07a51446ca8d805fa1e82e4487414` |
-| `tests/vault_example_en/.claude/commands/lint.md` | 3404 | `35301d9e549060582d96d6512bcc819c9aa6319e63a27928a6a036f664470e49` |
+| `tests/vault_example_en/.claude/commands/lint.md` | 3588 | `abf214d1175031394f91a7f0081a774b4a21b2097d99eaaeb8b18b46be45634a` |
 | `tests/vault_example_en/.claude/commands/query.md` | 1604 | `9875fd63998433b754ea50bb1fff5dc3932dbe2724900b1b5419d8068fcfe1b8` |
 | `tests/vault_example_en/.second-brain.json` | 15 | `cba21574b04097a326513516b95c4d5f1e74ed963aa2bdf3de6145602d495d8e` |
-| `tests/vault_example_en/CLAUDE.md` | 8159 | `a075101c320279675d23c1ba813adbc6de2b41bec598c5fa93f75ad950e00f47` |
+| `tests/vault_example_en/CLAUDE.md` | 8277 | `f3ee4a3156947efa8f1fae6ca2cb0e4f9690c36fd2767bf4716b64be83e5ae30` |
 | `tests/vault_example_en/raw/.gitkeep` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
 | `tests/vault_example_en/raw/.hashes.json` | 238 | `6d865a6f4c8eb3f61905309fec69e0c659fe3b1b0b8403368d2ce57b6c5976de` |
 | `tests/vault_example_en/raw/2026-09-01-example-article-spaced-repetition.md` | 950 | `a1352ec640bdaddfd34333288f4945df73a0e47e4ab175b0ccba236896c0cdba` |
 | `tests/vault_example_en/raw/2026-09-02-example-team-notes.md` | 563 | `8203a77845519c7428408946f2bea2cdb1f678b8c1ecd032df42bf489a802a77` |
-| `tests/vault_example_en/scripts/lint.py` | 21910 | `670068cf49320c5a246a08309fcb5507c6a57ce01f5b1e20f35989cde0d78581` |
+| `tests/vault_example_en/scripts/lint.py` | 23308 | `6fc98cea8eadb805d478bb653df38400005aaebd7ba2a5965460a56b510f9f75` |
 | `tests/vault_example_en/scripts/log.py` | 6152 | `ba0d2f9869dde7c2d828e8fd68a317523854124b0e12855f50f76aa95a42036e` |
 | `tests/vault_example_en/wiki/concepts/spaced-repetition.md` | 1347 | `a792a7b7d5cfe17476b5e6b8e9c477626a32138e6ba29082f24ee78852880721` |
 | `tests/vault_example_en/wiki/entities/example-team.md` | 933 | `551720d595bb637ab52458a507293bd1d63466bf5e0e228530526a60246c81de` |
@@ -556,6 +557,7 @@ The first line is the verdict: `LINT: GREEN (0 failures)` or `LINT: RED (N failu
 | `missing_source` | A `raw/...` entry in `sources` does not exist on disk. | Correct the path. |
 | *warning* `raw_unhashed` | A source in `raw/` that is not registered (not ingested yet). | Ingest it with `/ingest`. |
 | *warning* `command_without_quadrant` | A command in `.claude/commands/` has no `Quadrant:` line (MAESTRO rule 11). | Add the line with the quadrant and who frames, acts and learns. |
+| *warning* `wiki_larger_than_raw` | With at least 100 KB of sources, the wiki (without `index.md` and `log.md`) weighs more than `raw/`: it is probably copying instead of distilling. | Summarize the pages that repeat their source. |
 
 ## Optional tools
 
@@ -812,6 +814,7 @@ La primera línea es el veredicto: `LINT: VERDE (0 fallos)` o `LINT: ROJO (N fal
 | `fuente_inexistente` | Una entrada `raw/...` de `fuentes` no existe en disco. | Corregir la ruta. |
 | *aviso* `raw_sin_hash` | Fuente en `raw/` sin registrar (aún no ingerida). | Ingerirla con `/ingest`. |
 | *aviso* `comando_sin_cuadrante` | Un comando de `.claude/commands/` no tiene su línea `Cuadrante:` (regla MAESTRO 11). | Añadir la línea con el cuadrante y quién define, actúa y aprende. |
+| *aviso* `wiki_mayor_que_raw` | Con al menos 100 KB de fuentes, la wiki (sin `index.md` ni `log.md`) pesa más que `raw/`: probablemente copia en vez de destilar. | Resumir las páginas que repiten la fuente. |
 
 ## Herramientas opcionales
 
@@ -1485,6 +1488,7 @@ For each failure: explain what it means on that page and **propose the fix as a 
 
 The **warnings** (`raw_unhashed`) point to sources in `raw/` that have not been ingested yet: list them as candidates for `/ingest`.
 The `command_without_quadrant` warning flags a command in `.claude/commands/` without its `Quadrant:` line (MAESTRO rule 11): propose adding it as a diff.
+The `wiki_larger_than_raw` warning (only with ≥ 100 KB in `raw/`) flags a wiki that weighs more than its sources: find the pages that copy their source and propose summarizing them.
 
 ## 3. Judgment review (not programmatic)
 
@@ -1684,6 +1688,7 @@ The user's own rules, added to Karpathy's pattern. They always apply.
 | raw/ immutable | `scripts/lint.py` → `raw_modified`, `raw_missing`, `missing_source` |
 | Append-only log | `scripts/log.py` (only appends) |
 | Quadrant declared in every command (rule 11) | `scripts/lint.py` → warning `command_without_quadrant` |
+| The wiki distills, does not copy (with ≥ 100 KB in raw/) | `scripts/lint.py` → warning `wiki_larger_than_raw` |
 | Skeptical pass, citations, closing confidence, date prefix in raw/, kebab-case, contradictions, pending links | judgment review by `/lint` |
 ````
 
@@ -1859,6 +1864,7 @@ Para cada fallo: explica qué significa en esa página y **propón el arreglo co
 
 Los **avisos** (`raw_sin_hash`) indican fuentes en `raw/` que aún no se han ingerido: lístalas como candidatas a `/ingest`.
 El aviso `comando_sin_cuadrante` señala un comando de `.claude/commands/` sin su línea `Cuadrante:` (regla MAESTRO 11): propón añadirla como diff.
+El aviso `wiki_mayor_que_raw` (solo con ≥ 100 KB en `raw/`) señala una wiki que pesa más que sus fuentes: busca las páginas que copian la fuente y propón resumirlas.
 
 ## 3. Revisión a juicio (no programática)
 
@@ -2058,6 +2064,7 @@ Reglas propias del usuario, añadidas al patrón de Karpathy. Se aplican siempre
 | raw/ inmutable | `scripts/lint.py` → `raw_modificado`, `raw_desaparecido`, `fuente_inexistente` |
 | Log append-only | `scripts/log.py` (solo añade) |
 | Cuadrante declarado en cada comando (regla 11) | `scripts/lint.py` → aviso `comando_sin_cuadrante` |
+| La wiki destila, no copia (con ≥ 100 KB en raw/) | `scripts/lint.py` → aviso `wiki_mayor_que_raw` |
 | Paso escéptico, citas, confianza al final, prefijo de fecha en raw/, kebab-case, contradicciones, pendientes | revisión a juicio de `/lint` |
 ````
 
@@ -2113,7 +2120,8 @@ Formato de cada línea: `AAAA-MM-DD | OP | descripción`
 ```python
 #!/usr/bin/env python3
 """Lint de la wiki: frontmatter, categorías, enlaces, huérfanas, reciprocidad,
-caducidad, índice, integridad de raw/ y cuadrante declarado en cada comando.
+caducidad, índice, integridad de raw/, cuadrante declarado en cada comando y
+tamaño de la wiki frente a sus fuentes.
 
 Uso:    python3 scripts/lint.py [vault] [--json] [--hoy AAAA-MM-DD] [--lang es|en]
 Salida: exit 0 si VERDE (sin fallos), 1 si ROJO (hay fallos), 2 si error de uso.
@@ -2153,6 +2161,12 @@ CAMPOS_OBLIGATORIOS = {
 # Marca de página archivada (regla MAESTRO 6). Vive aquí para que la convención
 # de cada idioma esté en un solo sitio; ningún chequeo trata distinto esas páginas.
 MARCA_ARCHIVO = {"es": ("estado", "archivo"), "en": ("status", "archived")}
+# Una wiki que pesa más que sus fuentes probablemente copia en vez de destilar
+# (Anthropic, «The components of agent memory», 2026: 115 KB de fuentes → 203 KB de wiki).
+UMBRAL_TAMANO_WIKI = 1.0
+# Con menos de ~100 KB de fuentes la razón no informa: las páginas de concepto y
+# entidad agregan varias fuentes, así que una wiki pequeña suele pesar más que raw/.
+MINIMO_RAW_KB = 100
 # -----------------------------------------------------------------------------
 
 IDIOMAS = ("es", "en")
@@ -2171,7 +2185,7 @@ IDS_EN = {
     "index_falta": "index_missing", "index_sobra": "index_extra",
     "raw_modificado": "raw_modified", "raw_desaparecido": "raw_missing",
     "fuente_inexistente": "missing_source", "raw_sin_hash": "raw_unhashed",
-    "comando_sin_cuadrante": "command_without_quadrant",
+    "comando_sin_cuadrante": "command_without_quadrant", "wiki_mayor_que_raw": "wiki_larger_than_raw",
 }
 # Claves del JSON de un vault en inglés (en español se conservan las de siempre).
 CLAVES_EN = {"estado": "status", "fallos": "failures", "avisos": "warnings", "paginas": "pages",
@@ -2209,6 +2223,8 @@ TEXTOS = {
         "raw_sin_hash": "sin hash en raw/.hashes.json; se registra al ingerirla (scripts/log.py --raw)",
         "sin_cuadrante": "no declara su cuadrante: falta una línea que empiece por «Cuadrante:» "
                          "(regla MAESTRO 11)",
+        "wiki_mayor_que_raw": "la wiki pesa {wiki:.1f} KB y sus fuentes {raw:.1f} KB ({ratio:.2f}×): "
+                              "una wiki debería destilar, no copiar; revisa páginas que repiten la fuente",
         "sin_yaml": "error: falta PyYAML. Instálalo con: pip install pyyaml",
         "hoy_invalida": "argument --hoy: fecha inválida '{valor}' (usa AAAA-MM-DD)",
         "no_es_vault": "error: {vault} no parece un vault (no tiene carpeta wiki/)",
@@ -2244,6 +2260,8 @@ TEXTOS = {
         "raw_sin_hash": "no hash in raw/.hashes.json; it is registered on ingest (scripts/log.py --raw)",
         "sin_cuadrante": "does not declare its quadrant: no line starting with \"Quadrant:\" "
                          "(MAESTRO rule 11)",
+        "wiki_mayor_que_raw": "the wiki weighs {wiki:.1f} KB and its sources {raw:.1f} KB ({ratio:.2f}×): "
+                              "a wiki should distill, not copy; review pages that repeat their source",
         "sin_yaml": "error: PyYAML is missing. Install it with: pip install pyyaml",
         "hoy_invalida": "argument --hoy: invalid date '{valor}' (use YYYY-MM-DD)",
         "no_es_vault": "error: {vault} does not look like a vault (no wiki/ folder)",
@@ -2431,11 +2449,13 @@ def lint(vault: Path, hoy: dt.date, idioma: str = "es") -> dict:
 
     # 1) Páginas: todo .md de wiki/ salvo wiki/index.md y wiki/log.md.
     paginas, salientes = {}, {}
+    tam_wiki = 0
     for ruta in sorted(wiki.rglob("*.md")):
         rel_wiki = ruta.relative_to(wiki)
         if not ruta.is_file() or oculto(rel_wiki) or rel_wiki.as_posix() in ("index.md", "log.md"):
             continue
         rel = ruta.relative_to(vault).as_posix()
+        tam_wiki += ruta.stat().st_size
         texto = ruta.read_text(encoding="utf-8-sig")
         bloque, cuerpo = separar_frontmatter(texto)
         enlaces = destinos(RE_CODIGO.sub("", cuerpo))
@@ -2493,14 +2513,22 @@ def lint(vault: Path, hoy: dt.date, idioma: str = "es") -> dict:
             fallo("raw_desaparecido", rel, T["raw_desaparecido"])
         elif sha256(ruta) != registrado:
             fallo("raw_modificado", rel, T["raw_modificado"])
+    tam_raw = 0
     if raw.is_dir():
         for ruta in sorted(raw.rglob("*")):
             if ruta.is_file() and not oculto(ruta.relative_to(raw)):
+                tam_raw += ruta.stat().st_size
                 rel = ruta.relative_to(vault).as_posix()
                 if rel not in hashes:
                     avisos.append({"tipo": "raw_sin_hash", "archivo": rel, "detalle": T["raw_sin_hash"]})
 
-    # 5) Cuadrante declarado en cada comando: es aviso, no cambia el resultado.
+    # 5) Tamaño: es aviso, no cambia el resultado.
+    if tam_raw >= MINIMO_RAW_KB * 1024 and tam_wiki / tam_raw > UMBRAL_TAMANO_WIKI:
+        avisos.append({"tipo": "wiki_mayor_que_raw", "archivo": "wiki/",
+                       "detalle": T["wiki_mayor_que_raw"].format(
+                           wiki=tam_wiki / 1024, raw=tam_raw / 1024, ratio=tam_wiki / tam_raw)})
+
+    # 6) Cuadrante declarado en cada comando: es aviso, no cambia el resultado.
     avisos += comandos_sin_cuadrante(vault, idioma)
 
     fallos.sort(key=lambda f: (TIPOS_FALLO.index(f["tipo"]), f["archivo"], f["detalle"]))
@@ -3198,6 +3226,21 @@ def test_sin_carpeta_de_comandos_no_avisa(vault_en):
     assert (codigo, datos["warnings"]) == (0, [])
 
 
+def test_en_aviso_wiki_larger_than_raw(vault_en):
+    rel = "raw/2026-09-18-big.md"
+    (vault_en / rel).write_text("source line\n" * (110 * 1024 // 12), encoding="utf-8")
+    assert correr(LOG, vault_en, "INGEST", "big", "--raw", rel).returncode == 0
+    escribir(vault_en, "wiki/concepts/alpha.md", "See [[beta]].\n" + "wiki line\n" * (150 * 1024 // 10))
+    codigo, datos = lint(vault_en)
+    assert codigo == 0
+    assert datos["status"] == "GREEN"
+    assert ids(datos, "warnings") == ["wiki_larger_than_raw"]
+    aviso = datos["warnings"][0]
+    assert aviso["file"] == "wiki/"
+    assert aviso["detail"].startswith("the wiki weighs 150.")
+    assert "KB and its sources 110.0 KB" in aviso["detail"]
+
+
 # --- vault de ejemplo en inglés -----------------------------------------------------------
 
 def test_vault_example_en_verde():
@@ -3763,6 +3806,73 @@ def test_raw_sin_hash_es_aviso_no_fallo(vault):
     assert datos["avisos"][0]["archivo"] == "raw/2026-09-18-nueva.md"
 
 
+# --- Aviso wiki_mayor_que_raw (la wiki pesa más que sus fuentes) -----------------------
+
+KB = 1024
+
+
+def raw_de(vault: Path, kb: int) -> None:
+    """Fuente registrada de `kb` KB, para que raw/ supere (o no) el mínimo de 100 KB."""
+    rel = "raw/2026-09-18-grande.md"
+    (vault / rel).write_text("linea de fuente\n" * (kb * KB // 16), encoding="utf-8")
+    assert correr(KIT / "scripts/log.py", vault, "INGEST", "grande", "--raw", rel).returncode == 0
+
+
+def wiki_de(vault: Path, kb: int) -> None:
+    """Engorda alfa hasta unos `kb` KB sin romper ningún otro chequeo."""
+    escribir(vault, "wiki/conceptos/alfa.md", "Ver [[beta]].\n" + "linea de wiki\n" * (kb * KB // 14))
+
+
+def avisos_wiki(datos) -> list:
+    return [a for a in datos["avisos"] if a["tipo"] == "wiki_mayor_que_raw"]
+
+
+def test_wiki_mayor_que_raw_es_aviso_no_fallo(vault):
+    raw_de(vault, 110)
+    wiki_de(vault, 150)
+    codigo, datos = lint(vault)
+    assert codigo == 0
+    assert datos["estado"] == "VERDE" and datos["fallos"] == []
+    assert [a["tipo"] for a in datos["avisos"]] == ["wiki_mayor_que_raw"]
+    aviso = datos["avisos"][0]
+    assert aviso["archivo"] == "wiki/"
+    assert aviso["detalle"].startswith("la wiki pesa 150.")
+    assert "KB y sus fuentes 110.0 KB (1.3" in aviso["detalle"]
+    r = correr(LINT, vault, "--hoy", HOY)
+    assert r.returncode == 0
+    assert "  - wiki/: la wiki pesa" in r.stdout
+
+
+def test_wiki_menor_que_raw_no_avisa(vault):
+    raw_de(vault, 150)
+    wiki_de(vault, 110)
+    assert avisos_wiki(lint(vault)[1]) == []
+
+
+def test_raw_bajo_el_minimo_no_avisa(vault):
+    raw_de(vault, 50)
+    wiki_de(vault, 200)
+    assert avisos_wiki(lint(vault)[1]) == []
+
+
+def test_raw_vacio_no_avisa(vault):
+    (vault / RAW).unlink()
+    (vault / "raw/.hashes.json").write_text("{}\n", encoding="utf-8")
+    wiki_de(vault, 200)
+    assert avisos_wiki(lint(vault)[1]) == []
+
+
+def test_index_y_log_no_cuentan_para_el_tamano(vault):
+    raw_de(vault, 110)
+    with (vault / "wiki/index.md").open("a", encoding="utf-8") as f:
+        f.write("relleno del indice\n" * (100 * KB // 19))
+    with (vault / "wiki/log.md").open("a", encoding="utf-8") as f:
+        f.write("relleno del log\n" * (100 * KB // 16))
+    codigo, datos = lint(vault)
+    assert codigo == 0
+    assert avisos_wiki(datos) == []
+
+
 # --- Salida y exit codes --------------------------------------------------------------------
 
 def test_json_valido_y_estructura(vault):
@@ -4066,6 +4176,7 @@ Para cada fallo: explica qué significa en esa página y **propón el arreglo co
 
 Los **avisos** (`raw_sin_hash`) indican fuentes en `raw/` que aún no se han ingerido: lístalas como candidatas a `/ingest`.
 El aviso `comando_sin_cuadrante` señala un comando de `.claude/commands/` sin su línea `Cuadrante:` (regla MAESTRO 11): propón añadirla como diff.
+El aviso `wiki_mayor_que_raw` (solo con ≥ 100 KB en `raw/`) señala una wiki que pesa más que sus fuentes: busca las páginas que copian la fuente y propón resumirlas.
 
 ## 3. Revisión a juicio (no programática)
 
@@ -4271,6 +4382,7 @@ Reglas propias del usuario, añadidas al patrón de Karpathy. Se aplican siempre
 | raw/ inmutable | `scripts/lint.py` → `raw_modificado`, `raw_desaparecido`, `fuente_inexistente` |
 | Log append-only | `scripts/log.py` (solo añade) |
 | Cuadrante declarado en cada comando (regla 11) | `scripts/lint.py` → aviso `comando_sin_cuadrante` |
+| La wiki destila, no copia (con ≥ 100 KB en raw/) | `scripts/lint.py` → aviso `wiki_mayor_que_raw` |
 | Paso escéptico, citas, confianza al final, prefijo de fecha en raw/, kebab-case, contradicciones, pendientes | revisión a juicio de `/lint` |
 ````
 
@@ -4336,7 +4448,8 @@ Fecha de la reunión: 2026-09-02.
 ```python
 #!/usr/bin/env python3
 """Lint de la wiki: frontmatter, categorías, enlaces, huérfanas, reciprocidad,
-caducidad, índice, integridad de raw/ y cuadrante declarado en cada comando.
+caducidad, índice, integridad de raw/, cuadrante declarado en cada comando y
+tamaño de la wiki frente a sus fuentes.
 
 Uso:    python3 scripts/lint.py [vault] [--json] [--hoy AAAA-MM-DD] [--lang es|en]
 Salida: exit 0 si VERDE (sin fallos), 1 si ROJO (hay fallos), 2 si error de uso.
@@ -4376,6 +4489,12 @@ CAMPOS_OBLIGATORIOS = {
 # Marca de página archivada (regla MAESTRO 6). Vive aquí para que la convención
 # de cada idioma esté en un solo sitio; ningún chequeo trata distinto esas páginas.
 MARCA_ARCHIVO = {"es": ("estado", "archivo"), "en": ("status", "archived")}
+# Una wiki que pesa más que sus fuentes probablemente copia en vez de destilar
+# (Anthropic, «The components of agent memory», 2026: 115 KB de fuentes → 203 KB de wiki).
+UMBRAL_TAMANO_WIKI = 1.0
+# Con menos de ~100 KB de fuentes la razón no informa: las páginas de concepto y
+# entidad agregan varias fuentes, así que una wiki pequeña suele pesar más que raw/.
+MINIMO_RAW_KB = 100
 # -----------------------------------------------------------------------------
 
 IDIOMAS = ("es", "en")
@@ -4394,7 +4513,7 @@ IDS_EN = {
     "index_falta": "index_missing", "index_sobra": "index_extra",
     "raw_modificado": "raw_modified", "raw_desaparecido": "raw_missing",
     "fuente_inexistente": "missing_source", "raw_sin_hash": "raw_unhashed",
-    "comando_sin_cuadrante": "command_without_quadrant",
+    "comando_sin_cuadrante": "command_without_quadrant", "wiki_mayor_que_raw": "wiki_larger_than_raw",
 }
 # Claves del JSON de un vault en inglés (en español se conservan las de siempre).
 CLAVES_EN = {"estado": "status", "fallos": "failures", "avisos": "warnings", "paginas": "pages",
@@ -4432,6 +4551,8 @@ TEXTOS = {
         "raw_sin_hash": "sin hash en raw/.hashes.json; se registra al ingerirla (scripts/log.py --raw)",
         "sin_cuadrante": "no declara su cuadrante: falta una línea que empiece por «Cuadrante:» "
                          "(regla MAESTRO 11)",
+        "wiki_mayor_que_raw": "la wiki pesa {wiki:.1f} KB y sus fuentes {raw:.1f} KB ({ratio:.2f}×): "
+                              "una wiki debería destilar, no copiar; revisa páginas que repiten la fuente",
         "sin_yaml": "error: falta PyYAML. Instálalo con: pip install pyyaml",
         "hoy_invalida": "argument --hoy: fecha inválida '{valor}' (usa AAAA-MM-DD)",
         "no_es_vault": "error: {vault} no parece un vault (no tiene carpeta wiki/)",
@@ -4467,6 +4588,8 @@ TEXTOS = {
         "raw_sin_hash": "no hash in raw/.hashes.json; it is registered on ingest (scripts/log.py --raw)",
         "sin_cuadrante": "does not declare its quadrant: no line starting with \"Quadrant:\" "
                          "(MAESTRO rule 11)",
+        "wiki_mayor_que_raw": "the wiki weighs {wiki:.1f} KB and its sources {raw:.1f} KB ({ratio:.2f}×): "
+                              "a wiki should distill, not copy; review pages that repeat their source",
         "sin_yaml": "error: PyYAML is missing. Install it with: pip install pyyaml",
         "hoy_invalida": "argument --hoy: invalid date '{valor}' (use YYYY-MM-DD)",
         "no_es_vault": "error: {vault} does not look like a vault (no wiki/ folder)",
@@ -4654,11 +4777,13 @@ def lint(vault: Path, hoy: dt.date, idioma: str = "es") -> dict:
 
     # 1) Páginas: todo .md de wiki/ salvo wiki/index.md y wiki/log.md.
     paginas, salientes = {}, {}
+    tam_wiki = 0
     for ruta in sorted(wiki.rglob("*.md")):
         rel_wiki = ruta.relative_to(wiki)
         if not ruta.is_file() or oculto(rel_wiki) or rel_wiki.as_posix() in ("index.md", "log.md"):
             continue
         rel = ruta.relative_to(vault).as_posix()
+        tam_wiki += ruta.stat().st_size
         texto = ruta.read_text(encoding="utf-8-sig")
         bloque, cuerpo = separar_frontmatter(texto)
         enlaces = destinos(RE_CODIGO.sub("", cuerpo))
@@ -4716,14 +4841,22 @@ def lint(vault: Path, hoy: dt.date, idioma: str = "es") -> dict:
             fallo("raw_desaparecido", rel, T["raw_desaparecido"])
         elif sha256(ruta) != registrado:
             fallo("raw_modificado", rel, T["raw_modificado"])
+    tam_raw = 0
     if raw.is_dir():
         for ruta in sorted(raw.rglob("*")):
             if ruta.is_file() and not oculto(ruta.relative_to(raw)):
+                tam_raw += ruta.stat().st_size
                 rel = ruta.relative_to(vault).as_posix()
                 if rel not in hashes:
                     avisos.append({"tipo": "raw_sin_hash", "archivo": rel, "detalle": T["raw_sin_hash"]})
 
-    # 5) Cuadrante declarado en cada comando: es aviso, no cambia el resultado.
+    # 5) Tamaño: es aviso, no cambia el resultado.
+    if tam_raw >= MINIMO_RAW_KB * 1024 and tam_wiki / tam_raw > UMBRAL_TAMANO_WIKI:
+        avisos.append({"tipo": "wiki_mayor_que_raw", "archivo": "wiki/",
+                       "detalle": T["wiki_mayor_que_raw"].format(
+                           wiki=tam_wiki / 1024, raw=tam_raw / 1024, ratio=tam_wiki / tam_raw)})
+
+    # 6) Cuadrante declarado en cada comando: es aviso, no cambia el resultado.
     avisos += comandos_sin_cuadrante(vault, idioma)
 
     fallos.sort(key=lambda f: (TIPOS_FALLO.index(f["tipo"]), f["archivo"], f["detalle"]))
@@ -5235,6 +5368,7 @@ For each failure: explain what it means on that page and **propose the fix as a 
 
 The **warnings** (`raw_unhashed`) point to sources in `raw/` that have not been ingested yet: list them as candidates for `/ingest`.
 The `command_without_quadrant` warning flags a command in `.claude/commands/` without its `Quadrant:` line (MAESTRO rule 11): propose adding it as a diff.
+The `wiki_larger_than_raw` warning (only with ≥ 100 KB in `raw/`) flags a wiki that weighs more than its sources: find the pages that copy their source and propose summarizing them.
 
 ## 3. Judgment review (not programmatic)
 
@@ -5440,6 +5574,7 @@ The user's own rules, added to Karpathy's pattern. They always apply.
 | raw/ immutable | `scripts/lint.py` → `raw_modified`, `raw_missing`, `missing_source` |
 | Append-only log | `scripts/log.py` (only appends) |
 | Quadrant declared in every command (rule 11) | `scripts/lint.py` → warning `command_without_quadrant` |
+| The wiki distills, does not copy (with ≥ 100 KB in raw/) | `scripts/lint.py` → warning `wiki_larger_than_raw` |
 | Skeptical pass, citations, closing confidence, date prefix in raw/, kebab-case, contradictions, pending links | judgment review by `/lint` |
 ````
 
@@ -5505,7 +5640,8 @@ Meeting date: 2026-09-02.
 ```python
 #!/usr/bin/env python3
 """Lint de la wiki: frontmatter, categorías, enlaces, huérfanas, reciprocidad,
-caducidad, índice, integridad de raw/ y cuadrante declarado en cada comando.
+caducidad, índice, integridad de raw/, cuadrante declarado en cada comando y
+tamaño de la wiki frente a sus fuentes.
 
 Uso:    python3 scripts/lint.py [vault] [--json] [--hoy AAAA-MM-DD] [--lang es|en]
 Salida: exit 0 si VERDE (sin fallos), 1 si ROJO (hay fallos), 2 si error de uso.
@@ -5545,6 +5681,12 @@ CAMPOS_OBLIGATORIOS = {
 # Marca de página archivada (regla MAESTRO 6). Vive aquí para que la convención
 # de cada idioma esté en un solo sitio; ningún chequeo trata distinto esas páginas.
 MARCA_ARCHIVO = {"es": ("estado", "archivo"), "en": ("status", "archived")}
+# Una wiki que pesa más que sus fuentes probablemente copia en vez de destilar
+# (Anthropic, «The components of agent memory», 2026: 115 KB de fuentes → 203 KB de wiki).
+UMBRAL_TAMANO_WIKI = 1.0
+# Con menos de ~100 KB de fuentes la razón no informa: las páginas de concepto y
+# entidad agregan varias fuentes, así que una wiki pequeña suele pesar más que raw/.
+MINIMO_RAW_KB = 100
 # -----------------------------------------------------------------------------
 
 IDIOMAS = ("es", "en")
@@ -5563,7 +5705,7 @@ IDS_EN = {
     "index_falta": "index_missing", "index_sobra": "index_extra",
     "raw_modificado": "raw_modified", "raw_desaparecido": "raw_missing",
     "fuente_inexistente": "missing_source", "raw_sin_hash": "raw_unhashed",
-    "comando_sin_cuadrante": "command_without_quadrant",
+    "comando_sin_cuadrante": "command_without_quadrant", "wiki_mayor_que_raw": "wiki_larger_than_raw",
 }
 # Claves del JSON de un vault en inglés (en español se conservan las de siempre).
 CLAVES_EN = {"estado": "status", "fallos": "failures", "avisos": "warnings", "paginas": "pages",
@@ -5601,6 +5743,8 @@ TEXTOS = {
         "raw_sin_hash": "sin hash en raw/.hashes.json; se registra al ingerirla (scripts/log.py --raw)",
         "sin_cuadrante": "no declara su cuadrante: falta una línea que empiece por «Cuadrante:» "
                          "(regla MAESTRO 11)",
+        "wiki_mayor_que_raw": "la wiki pesa {wiki:.1f} KB y sus fuentes {raw:.1f} KB ({ratio:.2f}×): "
+                              "una wiki debería destilar, no copiar; revisa páginas que repiten la fuente",
         "sin_yaml": "error: falta PyYAML. Instálalo con: pip install pyyaml",
         "hoy_invalida": "argument --hoy: fecha inválida '{valor}' (usa AAAA-MM-DD)",
         "no_es_vault": "error: {vault} no parece un vault (no tiene carpeta wiki/)",
@@ -5636,6 +5780,8 @@ TEXTOS = {
         "raw_sin_hash": "no hash in raw/.hashes.json; it is registered on ingest (scripts/log.py --raw)",
         "sin_cuadrante": "does not declare its quadrant: no line starting with \"Quadrant:\" "
                          "(MAESTRO rule 11)",
+        "wiki_mayor_que_raw": "the wiki weighs {wiki:.1f} KB and its sources {raw:.1f} KB ({ratio:.2f}×): "
+                              "a wiki should distill, not copy; review pages that repeat their source",
         "sin_yaml": "error: PyYAML is missing. Install it with: pip install pyyaml",
         "hoy_invalida": "argument --hoy: invalid date '{valor}' (use YYYY-MM-DD)",
         "no_es_vault": "error: {vault} does not look like a vault (no wiki/ folder)",
@@ -5823,11 +5969,13 @@ def lint(vault: Path, hoy: dt.date, idioma: str = "es") -> dict:
 
     # 1) Páginas: todo .md de wiki/ salvo wiki/index.md y wiki/log.md.
     paginas, salientes = {}, {}
+    tam_wiki = 0
     for ruta in sorted(wiki.rglob("*.md")):
         rel_wiki = ruta.relative_to(wiki)
         if not ruta.is_file() or oculto(rel_wiki) or rel_wiki.as_posix() in ("index.md", "log.md"):
             continue
         rel = ruta.relative_to(vault).as_posix()
+        tam_wiki += ruta.stat().st_size
         texto = ruta.read_text(encoding="utf-8-sig")
         bloque, cuerpo = separar_frontmatter(texto)
         enlaces = destinos(RE_CODIGO.sub("", cuerpo))
@@ -5885,14 +6033,22 @@ def lint(vault: Path, hoy: dt.date, idioma: str = "es") -> dict:
             fallo("raw_desaparecido", rel, T["raw_desaparecido"])
         elif sha256(ruta) != registrado:
             fallo("raw_modificado", rel, T["raw_modificado"])
+    tam_raw = 0
     if raw.is_dir():
         for ruta in sorted(raw.rglob("*")):
             if ruta.is_file() and not oculto(ruta.relative_to(raw)):
+                tam_raw += ruta.stat().st_size
                 rel = ruta.relative_to(vault).as_posix()
                 if rel not in hashes:
                     avisos.append({"tipo": "raw_sin_hash", "archivo": rel, "detalle": T["raw_sin_hash"]})
 
-    # 5) Cuadrante declarado en cada comando: es aviso, no cambia el resultado.
+    # 5) Tamaño: es aviso, no cambia el resultado.
+    if tam_raw >= MINIMO_RAW_KB * 1024 and tam_wiki / tam_raw > UMBRAL_TAMANO_WIKI:
+        avisos.append({"tipo": "wiki_mayor_que_raw", "archivo": "wiki/",
+                       "detalle": T["wiki_mayor_que_raw"].format(
+                           wiki=tam_wiki / 1024, raw=tam_raw / 1024, ratio=tam_wiki / tam_raw)})
+
+    # 6) Cuadrante declarado en cada comando: es aviso, no cambia el resultado.
     avisos += comandos_sin_cuadrante(vault, idioma)
 
     fallos.sort(key=lambda f: (TIPOS_FALLO.index(f["tipo"]), f["archivo"], f["detalle"]))
